@@ -4,12 +4,13 @@
 
 using namespace std;
 
+template<typename T>
 class PriorityQueue {
 private:
-    vector<int> data;
+    vector<T> data;
 
 public:
-    void push(int value) {
+    void push(T value) {
         data.push_back(value);
         push_heap(data.begin(), data.end());
     }
@@ -19,7 +20,7 @@ public:
         data.pop_back();
     }
 
-    int top() {
+    T top() {
         return data.front();
     }
 
@@ -29,7 +30,7 @@ public:
 };
 
 int main() {
-    PriorityQueue pq;
+    PriorityQueue<int> pq;
 
     pq.push(3);
     pq.push(5);

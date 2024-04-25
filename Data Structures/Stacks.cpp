@@ -2,24 +2,25 @@
 
 using namespace std;
 
+template <typename T>
 class ArrayStack {
 private:
     int topIndex;
     int capacity;
-    int* stackArray;
+    T* stackArray;
 
 public:
     ArrayStack(int size) {
         topIndex = -1;
         capacity = size;
-        stackArray = new int[size];
+        stackArray = new T[size];
     }
 
     ~ArrayStack() {
         delete[] stackArray;
     }
 
-    void push(int data) {
+    void push(T data) {
         if (topIndex == capacity - 1) {
             cout << "Stack is full\n";
             return;
@@ -35,10 +36,10 @@ public:
         topIndex--;
     }
 
-    int top() {
+    T top() {
         if (topIndex == -1) {
             cout << "Stack is empty\n";
-            return -1;
+            return T();
         }
         return stackArray[topIndex];
     }
@@ -49,7 +50,7 @@ public:
 };
 
 int main() {
-    ArrayStack s(3);
+    ArrayStack<int> s(3);
     s.push(1);
     s.push(2);
     s.push(3);

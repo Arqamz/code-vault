@@ -3,9 +3,10 @@
 
 using namespace std;
 
+template <typename T>
 class Queue {
 private:
-    vector<int> items;
+    vector<T> items;
     int front;
     int rear;
 
@@ -23,7 +24,7 @@ public:
         return items.empty();
     }
 
-    void enqueue(int element) {
+    void enqueue(T element) {
         if (isFull()) {
             cout << "Queue is full\n";
         } else {
@@ -34,11 +35,11 @@ public:
         }
     }
 
-    int dequeue() {
-        int element;
+    T dequeue() {
+        T element;
         if (isEmpty()) {
             cout << "Queue is empty\n";
-            return (-1);
+            return T(); // return default value for T
         } else {
             element = items[front];
             items.erase(items.begin());

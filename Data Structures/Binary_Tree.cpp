@@ -1,17 +1,19 @@
 #include <iostream>
 #include <queue>
 
+template <typename T>
 struct TreeNode {
-    int data;
+    T data;
     TreeNode* left;
     TreeNode* right;
 
-    TreeNode(int value) : data(value), left(nullptr), right(nullptr) {}
+    TreeNode(T value) : data(value), left(nullptr), right(nullptr) {}
 };
 
+template <typename T>
 class BinaryTree {
 private:
-    TreeNode* root;
+    TreeNode<T>* root;
 
 public:
     BinaryTree() : root(nullptr) {}
@@ -28,30 +30,30 @@ public:
         return size(root);
     }
 
-    int getLevel(int value) {
+    int getLevel(T value) {
         return level(root, value, 1);
     }
 
-    void insert(int value) {
+    void insert(T value) {
         root = insertNode(root, value);
     }
 
-    void remove(int value) {
+    void remove(T value) {
         root = removeNode(root, value);
     }   
 
-    bool search(int value) {
+    bool search(T value) {
         return searchNode(root, value);
     }
 
     void breadthFirstTraversal() {
         if (root == nullptr) return;
 
-        std::queue<TreeNode*> q;
+        std::queue<TreeNode<T>*> q;
         q.push(root);
 
         while (!q.empty()) {
-            TreeNode* current = q.front();
+            TreeNode<T>* current = q.front();
             std::cout << current->data << " ";
 
             if (current->left != nullptr) q.push(current->left);
@@ -74,17 +76,17 @@ public:
     }
 
 private:
-    int height(TreeNode* node) {
+    int height(TreeNode<T>* node) {
         if (node == nullptr) return 0;
         return 1 + std::max(height(node->left), height(node->right));
     }
 
-    int size(TreeNode* node) {
+    int size(TreeNode<T>* node) {
         if (node == nullptr) return 0;
         return 1 + size(node->left) + size(node->right);
     }
 
-    int level(TreeNode* node, int value, int currentLevel) {
+    int level(TreeNode<T>* node, T value, int currentLevel) {
         if (node == nullptr) return 0;
 
         if (node->data == value) return currentLevel;
@@ -96,8 +98,8 @@ private:
         return downLevel;
     }
 
-    TreeNode* insertNode(TreeNode* node, int value) {
-        if (node == nullptr) return new TreeNode(value);
+    TreeNode<T>* insertNode(TreeNode<T>* node, T value) {
+        if (node == nullptr) return new TreeNode<T>(value);
 
         if (value < node->data) {
             node->left = insertNode(node->left, value);
@@ -108,7 +110,7 @@ private:
         return node;
     }
 
-    TreeNode* removeNode(TreeNode* node, int value) {
+    TreeNode<T>* removeNode(TreeNode<T>* node, T value) {
         if (node == nullptr) return nullptr;
 
         if (value < node->data) {
@@ -117,16 +119,16 @@ private:
             node->right = removeNode(node->right, value);
         } else {
             if (node->left == nullptr) {
-                TreeNode* temp = node->right;
+                TreeNode<T>* temp = node->right;
                 delete node;
                 return temp;
             } else if (node->right == nullptr) {
-                TreeNode* temp = node->left;
+                TreeNode<T>* temp = node->left;
                 delete node;
                 return temp;
             }
 
-            TreeNode* temp = findMin(node->right);
+            TreeNode<T>* temp = findMin(node->right);
             node->data = temp->data;
             node->right = removeNode(node->right, temp->data);
         }
@@ -134,14 +136,14 @@ private:
         return node;
     }
 
-    TreeNode* findMin(TreeNode* node) {
+    TreeNode<T>* findMin(TreeNode<T>* node) {
         while (node->left != nullptr) {
             node = node->left;
         }
         return node;
     }
 
-    bool searchNode(TreeNode* node, int value) {
+    bool searchNode(TreeNode<T>* node, T value) {
         if (node == nullptr) return false;
 
         if (value == node->data) return true;
@@ -149,7 +151,7 @@ private:
         return searchNode(node->right, value);
     }
 
-    void deleteTree(TreeNode* node) {
+    void deleteTree(TreeNode<T>* node) {
         if (node != nullptr) {
             deleteTree(node->left);
             deleteTree(node->right);
@@ -157,7 +159,7 @@ private:
         }
     }
 
-    void preOrder(TreeNode* node) {
+    void preOrder(TreeNode<T>* node) {
         if (node != nullptr) {
             std::cout << node->data << " ";
             preOrder(node->left);
@@ -165,7 +167,7 @@ private:
         }
     }
 
-    void inOrder(TreeNode* node) {
+    void inOrder(TreeNode<T>* node) {
         if (node != nullptr) {
             inOrder(node->left);
             std::cout << node->data << " ";
@@ -173,7 +175,7 @@ private:
         }
     }
 
-    void postOrder(TreeNode* node) {
+    void postOrder(TreeNode<T>* node) {
         if (node != nullptr) {
             postOrder(node->left);
             postOrder(node->right);
@@ -184,7 +186,7 @@ private:
 
 int main() {
     // Example usage
-    BinaryTree myTree;
+    BinaryTree<int> myTree;
     myTree.insert(50);
     myTree.insert(30);
     myTree.insert(20);

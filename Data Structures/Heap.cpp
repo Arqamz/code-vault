@@ -4,12 +4,13 @@
 
 using namespace std;
 
+template<typename T>
 class MinHeap {
 private:
-    vector<int> data;
+    vector<T> data;
 
 public:
-    void push(int val) {
+    void push(T val) {
         data.push_back(val);
         int index = data.size() - 1;
         while (index > 0) {
@@ -22,11 +23,11 @@ public:
         }
     }
 
-    int pop() {
+    T pop() {
         if (data.empty()) {
             throw runtime_error("Heap is empty");
         }
-        int result = data[0];
+        T result = data[0];
         int index = 0;
         data[index] = data.back();
         data.pop_back();
@@ -50,12 +51,13 @@ public:
     }
 };
 
+template<typename T>
 class MaxHeap {
 private:
-    vector<int> data;
+    vector<T> data;
 
 public:
-    void push(int val) {
+    void push(T val) {
         data.push_back(val);
         int index = data.size() - 1;
         while (index > 0) {
@@ -68,11 +70,11 @@ public:
         }
     }
 
-    int pop() {
+    T pop() {
         if (data.empty()) {
             throw runtime_error("Heap is empty");
         }
-        int result = data[0];
+        T result = data[0];
         int index = 0;
         data[index] = data.back();
         data.pop_back();
@@ -97,8 +99,8 @@ public:
 };
 
 int main() {
-    MinHeap minHeap;
-    MaxHeap maxHeap;
+    MinHeap<int> minHeap;
+    MaxHeap<int> maxHeap;
 
     // Test MinHeap
     minHeap.push(3);
